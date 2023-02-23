@@ -150,6 +150,7 @@ namespace ProgressTable.ViewModels
         public float ScoreMathSr { get => sc_scores[5]; set => this.RaiseAndSetIfChanged(ref sc_scores[5], value); }
         public float ScoreElectricSr { get => sc_scores[6]; set => this.RaiseAndSetIfChanged(ref sc_scores[6], value); }
         public float ScoreAverageSr { get => sc_scores[7]; set => this.RaiseAndSetIfChanged(ref sc_scores[7], value); }
+
         public SolidColorBrush ColorVisualSr { get => colorBrush[0]; set => this.RaiseAndSetIfChanged(ref colorBrush[0], value); }
         public SolidColorBrush ColorArchitectureSr { get => colorBrush[1]; set => this.RaiseAndSetIfChanged(ref colorBrush[1], value); }
         public SolidColorBrush ColorNetworksSr { get => colorBrush[2]; set => this.RaiseAndSetIfChanged(ref colorBrush[2], value); }
