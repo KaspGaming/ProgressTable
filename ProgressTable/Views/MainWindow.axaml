@@ -34,7 +34,6 @@
 			<Setter Property="VerticalAlignment" Value="Center"/>
 		</Style>
 	</Window.Styles>
-	<ScrollViewer>
 		<Grid ColumnDefinitions="*" RowDefinitions="Auto, Auto, Auto, Auto, Auto, Auto, Auto">
 			
 			<Grid Grid.Row="0" RowDefinitions="Auto" ColumnDefinitions="3*, 2*, 2*, *, 2*, 1.2*, *, *, 1.4*">
@@ -85,37 +84,29 @@
 				</ListBox.ItemTemplate>
 			</ListBox>
 
-			<Grid Grid.Row="2" RowDefinitions="Auto" ColumnDefinitions="3*, 2*, 2*, *, 2*, 1.2*, *, *, 1.4*">
+			<Grid Name="SrGrid" Grid.Row="2" RowDefinitions="Auto" ColumnDefinitions="3*, 2*, 2*, *, 2*, 1.2*, *, *, 1.4*">
 				<TextBlock Classes="h2" Text="Cр. баллы" Grid.Column="0"/>
-				<Rectangle Fill="{Binding ColorVisualSr}" Grid.Column="1"/>
-				<TextBlock Classes="h2" Text="{Binding ScoreVisualSr}" Grid.Column="1"/>
-				<Rectangle Fill="{Binding ColorArchitectureSr}" Grid.Column="2"/>
+				<TextBlock Name="VisualSrText" Classes="h2" Text="{Binding ScoreVisualSr}" Grid.Column="1"/>
 				<TextBlock Classes="h2" Text="{Binding ScoreArchitectureSr}" Grid.Column="2"/>
-				<Rectangle Fill="{Binding ColorNetworksSr}" Grid.Column="3"/>
 				<TextBlock Classes="h2" Text="{Binding ScoreNetworksSr}" Grid.Column="3"/>
-				<Rectangle Fill="{Binding ColorCalculate_MathSr}" Grid.Column="4"/>
 				<TextBlock Classes="h2" Text="{Binding ScoreCalculate_MathSr}" Grid.Column="4"/>
-				<Rectangle Fill="{Binding ColorPISr}" Grid.Column="5"/>
 				<TextBlock Classes="h2" Text="{Binding ScorePISr}" Grid.Column="5"/>
-				<Rectangle Fill="{Binding ColorMathSr}" Grid.Column="6"/>
 				<TextBlock Classes="h2" Text="{Binding ScoreMathSr}" Grid.Column="6"/>
-				<Rectangle Fill="{Binding ColorElectricSr}" Grid.Column="7"/>
 				<TextBlock Classes="h2" Text="{Binding ScoreElectricSr}" Grid.Column="7"/>
-				<Rectangle Fill="{Binding ColorAverageSr}" Grid.Column="8"/>
-				<TextBlock Classes="h2" Text="{Binding ScoreAverageSr}" Grid.Column="8"/>
+				<TextBlock Name="AverageSrText" Classes="h2" Text="{Binding ScoreAverageSr}" Grid.Column="8"/>
 				<Border Grid.Row="0" Grid.Column="0"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="1"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="2"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="3"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="4"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="5"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="6"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="7"  BorderBrush="Black"  BorderThickness="1" />
-				<Border Grid.Row="0" Grid.Column="8"  BorderBrush="Black"  BorderThickness="1" />
+				<Border Name="VisualSrBorder" ZIndex="-1" Background="{Binding ColorVisualSr}" Grid.Row="0" Grid.Column="1"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorArchitectureSr}" Grid.Row="0" Grid.Column="2"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorNetworksSr}" Grid.Row="0" Grid.Column="3"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorCalculate_MathSr}" Grid.Row="0" Grid.Column="4"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorPISr}" Grid.Row="0" Grid.Column="5"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorMathSr}" Grid.Row="0" Grid.Column="6"  BorderBrush="Black"  BorderThickness="1" />
+				<Border ZIndex="-1" Background="{Binding ColorElectricSr}" Grid.Row="0" Grid.Column="7"  BorderBrush="Black"  BorderThickness="1" />
+				<Border Name="AverageSrBorder" ZIndex="-1" Background="{Binding ColorAverageSr}" Grid.Row="0" Grid.Column="8"  BorderBrush="Black"  BorderThickness="1" />
 			</Grid>
 
 			<Grid Grid.Row="3" RowDefinitions="Auto" ColumnDefinitions="3*, 2*, 2*, *, 2*, 1.2*, *, *, 1.4*">
-				<TextBox Classes="h2" Grid.Column="0" Text="{Binding NewName}"/>
+				<TextBox Name="TextBoxName" Classes="h2" Grid.Column="0" Text="{Binding NewName}"/>
 				<ComboBox Grid.Column="1" HorizontalAlignment="Stretch" SelectedIndex="{Binding ScoreVisual}">
 					<TextBlock>0</TextBlock>
 					<TextBlock>1</TextBlock>
@@ -163,14 +154,13 @@
 			</Grid>
 
 			<Grid Grid.Row="4" RowDefinitions="Auto" ColumnDefinitions="*, *">
-				<Button Grid.Column="0" Content="Добавить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding AddStudent}"/>
-				<Button Grid.Column="1" Content="Удалить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding DeleteStudent}"/>
+				<Button Name="AddStudentButton" Grid.Column="0" Content="Добавить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding AddStudent}"/>
+				<Button Name="RemoveStudentButton" Grid.Column="1" Content="Удалить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding DeleteStudent}"/>
 			</Grid>
 
 			<Grid Grid.Row="5" RowDefinitions="Auto" ColumnDefinitions="*, *">
-				<Button Grid.Column="0" Content="Сохранить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding Save}"/>
-				<Button Grid.Column="1" Content="Загрузить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding Load}"/>
+				<Button Name="SaveButton" Grid.Column="0" Content="Сохранить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding Save}"/>
+				<Button Name="LoadButton" Grid.Column="1" Content="Загрузить" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Command="{Binding Load}"/>
 			</Grid>
 		</Grid>
-	</ScrollViewer>
 </Window>

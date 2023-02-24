@@ -1,13 +1,15 @@
 using Avalonia.Controls;
 using Avalonia.Media;
 using Avalonia.VisualTree;
+using System.Drawing;
+using Color = Avalonia.Media.Color;
 
 namespace UITestsForProgressTable
 {
     public class UnitTests
     {
         [Fact]
-        public async void ColorTestsRedAndGreen()
+        public async void ColorTestsRed()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -16,18 +18,152 @@ namespace UITestsForProgressTable
 
             var listBoxItems = mainWindow.GetVisualDescendants().OfType<ListBox>().First().GetVisualDescendants().OfType<ListBoxItem>();
 
-            foreach (var listBoxItem in listBoxItems)
+            var listBoxItem = listBoxItems.ToArray()[0];
+            var visualProgrammBorder = listBoxItem.GetVisualDescendants().OfType<Border>().First(x => (x.Name != null) && x.Name.Equals("VisualProgrammBorder"));
+            var textBlockVisualProgramm = listBoxItem.GetVisualDescendants().OfType<TextBlock>().First(x => (x.Name != null) && x.Name.Equals("VisualProgrammText"));
+            var text = textBlockVisualProgramm.Text;
+            Color c = text switch
             {
-                var visualProgrammBorder = listBoxItem.GetVisualDescendants().OfType<Border>().Where(x => x.Name.Equals("VisualProgrammBorder")).First();
-                var textBlockVisualProgramm = listBoxItem.GetVisualDescendants().OfType <TextBlock>().Where(x => x.Name.Equals("VisualProgrammText")).First();
-                var text = textBlockVisualProgramm.Text;
-                Color c;
-                if (text == "0") c = Colors.Red;
-                if (text == "1") c = Colors.Yellow;
-                else c = Colors.Green;
-                var color = (visualProgrammBorder.Background as SolidColorBrush).Color;
-                Assert.True(color.Equals(c), "Not true");
-            }
+                "0" => Colors.Red,
+                "1" => Colors.Yellow,
+                "2" => Colors.Green,
+            };
+            var color = (visualProgrammBorder.Background as SolidColorBrush).Color;
+            Assert.True(color.Equals(c), "Not true");
+        }
+
+        [Fact]
+        public async void ColorTestsGreen()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var listBoxItems = mainWindow.GetVisualDescendants().OfType<ListBox>().First().GetVisualDescendants().OfType<ListBoxItem>();
+
+            var listBoxItem = listBoxItems.ToArray()[1];
+            var visualProgrammBorder = listBoxItem.GetVisualDescendants().OfType<Border>().First(x => (x.Name != null) && x.Name.Equals("VisualProgrammBorder"));
+            var textBlockVisualProgramm = listBoxItem.GetVisualDescendants().OfType<TextBlock>().First(x => (x.Name != null) && x.Name.Equals("VisualProgrammText"));
+            var text = textBlockVisualProgramm.Text;
+            Color c = text switch
+            {
+                "0" => Colors.Red,
+                "1" => Colors.Yellow,
+                "2" => Colors.Green,
+            };
+            var color = (visualProgrammBorder.Background as SolidColorBrush).Color;
+            Assert.True(color.Equals(c), "Not true");
+        }
+
+        [Fact]
+        public async void ColorTestsYellow()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var grid = mainWindow.GetVisualDescendants().OfType<Grid>().First(x => (x.Name != null) && x.Name.Equals("SrGrid"));
+
+            var visualProgrammBorder = grid.GetVisualDescendants().OfType<Border>().First(x => (x.Name != null) && x.Name.Equals("VisualSrBorder"));
+            var textBlockVisualProgramm = grid.GetVisualDescendants().OfType<TextBlock>().First(x => (x.Name != null) && x.Name.Equals("VisualSrText"));
+            var text = textBlockVisualProgramm.Text;
+            Color c = text switch
+            {
+                "0" => Colors.Red,
+                "1" => Colors.Yellow,
+                "2" => Colors.Green,
+            };
+            var color = (visualProgrammBorder.Background as SolidColorBrush).Color;
+            Assert.True(color.Equals(c), "Not true");
+        }
+
+
+        [Fact]
+        public async void AddStudentAndSaveTest()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var listBoxItems = mainWindow.GetVisualDescendants().OfType<ListBox>().First().GetVisualDescendants().OfType<ListBoxItem>();
+
+            var buttonAdd = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "AddStudentButton");
+            var buttonSave = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "SaveButton");
+            var buttonLoad = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "LoadButton");
+
+            var textbox = mainWindow.GetVisualDescendants().OfType<TextBox>().First(t => t.Name == "TextBoxName");
+
+            buttonSave.Command.Execute(buttonSave.CommandParameter);
+            textbox.Text = "Валентина Валерьевна";
+            buttonAdd.Command.Execute(buttonAdd.CommandParameter);
+
+
+            Assert.True(listBoxItems.Count() == 3);
+
+            buttonLoad.Command.Execute(buttonLoad.CommandParameter);
+        }
+
+        [Fact]
+        public async void RemoveStudentTest()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var listBox = mainWindow.GetVisualDescendants().OfType<ListBox>().First();
+
+            var listBoxItems = listBox.GetVisualDescendants().OfType<ListBoxItem>();
+
+            var buttonRemove = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "RemoveStudentButton");
+            var buttonSave = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "SaveButton");
+            var buttonLoad = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "LoadButton");
+
+            buttonSave.Command.Execute(buttonSave.CommandParameter);
+            listBox.SelectedIndex = 0;
+            buttonRemove.Command.Execute(buttonRemove.CommandParameter);
+
+            Assert.True(listBoxItems.Count() == 1);
+
+            buttonLoad.Command.Execute(buttonLoad.CommandParameter);
+        }
+
+        [Fact]
+        public async void SrColorTest()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var grid = mainWindow.GetVisualDescendants().OfType<Grid>().First(x => (x.Name != null) && x.Name.Equals("SrGrid"));
+
+            var visualProgrammBorder = grid.GetVisualDescendants().OfType<Border>().First(x => (x.Name != null) && x.Name.Equals("AverageSrBorder"));
+            var textBlockVisualProgramm = grid.GetVisualDescendants().OfType<TextBlock>().First(x => (x.Name != null) && x.Name.Equals("AverageSrText"));
+
+            var buttonAdd = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "AddStudentButton");
+            var buttonSave = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "SaveButton");
+            var buttonLoad = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "LoadButton");
+
+            var textbox = mainWindow.GetVisualDescendants().OfType<TextBox>().First(t => t.Name == "TextBoxName");
+
+            buttonSave.Command.Execute(buttonSave.CommandParameter);
+            textbox.Text = "Валентина Валерьевна";
+            buttonAdd.Command.Execute(buttonAdd.CommandParameter);
+
+            var text = textBlockVisualProgramm.Text;
+            float asd = (float)Convert.ToDouble(text);
+            Color c;
+            if (asd < 1) c = Colors.Red;
+            else if (asd < 1.5) c = Colors.Yellow;
+            else c = Colors.Green;
+            var color = (visualProgrammBorder.Background as SolidColorBrush).Color;
+            Assert.True(color.Equals(c), "Not true");
+
+            buttonLoad.Command.Execute(buttonLoad.CommandParameter);
         }
     }
 }
