@@ -9,7 +9,7 @@ namespace UITestsForProgressTable
     public class UnitTests
     {
         [Fact]
-        public async void ColorTestsRed()
+        public async void colors_tests_red()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -33,7 +33,7 @@ namespace UITestsForProgressTable
         }
 
         [Fact]
-        public async void ColorTestsGreen()
+        public async void color_tests_green()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -57,7 +57,7 @@ namespace UITestsForProgressTable
         }
 
         [Fact]
-        public async void ColorTestsYellow()
+        public async void color_tests_yellow()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -81,7 +81,7 @@ namespace UITestsForProgressTable
 
 
         [Fact]
-        public async void AddStudentAndSaveTest()
+        public async void add_student_and_save_test()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -107,7 +107,33 @@ namespace UITestsForProgressTable
         }
 
         [Fact]
-        public async void RemoveStudentTest()
+        public async void student_save_test()
+        {
+            var app = AvaloniaApp.GetApp();
+            var mainWindow = AvaloniaApp.GetMainWindow();
+
+            await Task.Delay(100);
+
+            var listBoxItems = mainWindow.GetVisualDescendants().OfType<ListBox>().First().GetVisualDescendants().OfType<ListBoxItem>();
+
+            var buttonAdd = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "AddStudentButton");
+            var buttonSave = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "SaveButton");
+            var buttonLoad = mainWindow.GetVisualDescendants().OfType<Button>().First(b => b.Name == "LoadButton");
+
+            var textbox = mainWindow.GetVisualDescendants().OfType<TextBox>().First(t => t.Name == "TextBoxName");
+
+            buttonSave.Command.Execute(buttonSave.CommandParameter);
+            textbox.Text = "Валентина Валерьевна";
+            buttonAdd.Command.Execute(buttonAdd.CommandParameter);
+
+
+
+            buttonLoad.Command.Execute(buttonLoad.CommandParameter);
+            Assert.True(listBoxItems.Count() == 2);
+        }
+
+        [Fact]
+        public async void remove_student_test()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
@@ -132,7 +158,7 @@ namespace UITestsForProgressTable
         }
 
         [Fact]
-        public async void SrColorTest()
+        public async void sr_color_test()
         {
             var app = AvaloniaApp.GetApp();
             var mainWindow = AvaloniaApp.GetMainWindow();
